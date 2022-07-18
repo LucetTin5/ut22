@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { LoginContext } from "../App";
+import logout from "../functions/signout";
 
 const Navbar = () => {
   const isLogin = useContext(LoginContext);
+  useEffect(() => {}, [isLogin]);
   return (
     <nav>
       <ul>
@@ -19,6 +21,11 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="/user/profile">See profile</Link>
+            </li>
+            <li>
+              <Link to="/" onClick={logout}>
+                Logout
+              </Link>
             </li>
           </>
         ) : (

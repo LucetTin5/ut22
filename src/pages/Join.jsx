@@ -1,40 +1,48 @@
-import Headers from "../components/Headers";
-import { useState, useEffect } from "react";
-import signIn from "../functions/sign-in";
+import register from "../functions/register";
+import { useState } from "react";
 
-const Login = () => {
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+const Join = () => {
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
   const handleChange =
     (prop) =>
     ({ target: { value } }) => {
       switch (prop) {
         case "email":
-          setLoginEmail(value);
+          setRegisterEmail(value);
           break;
         case "password":
-          setLoginPassword(value);
+          setRegisterPassword(value);
           break;
       }
     };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { accessToken, uid } = await signIn({ loginEmail, loginPassword });
+    const {
+      user: { accessToken },
+    } = await register({
+      registerEmail,
+      registerPassword,
+      setErrorMsg,
+    });
     if (accessToken) {
       localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("uid", uid);
       location.href = "/";
     }
   };
+
   return (
     <>
+      {errorMsg ? <span>{errorMsg}</span> : <></>}
       <form method="POST" onSubmit={handleSubmit} encType="multipart/form-data">
         <label htmlFor="email">E-mail</label>
         <input
           type="email"
           name="email"
           id="email"
-          value={loginEmail}
+          value={registerEmail}
           onChange={handleChange("email")}
         />
         <label htmlFor="password">Password</label>
@@ -42,13 +50,13 @@ const Login = () => {
           type="password"
           name="password"
           id="password"
-          value={loginPassword}
+          value={registerPassword}
           onChange={handleChange("password")}
         />
-        <input type="submit" value="Login" />
+        <input type="submit" value="Join" />
       </form>
     </>
   );
 };
 
-export default Login;
+export default Join;

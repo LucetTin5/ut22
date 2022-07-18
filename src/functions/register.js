@@ -1,11 +1,6 @@
 import { auth, createUserWithEmailAndPassword } from "../firebase";
-import { useState } from "react";
 
-const [registerEmail, setRegisterEmail] = useState("");
-const [registerPassword, setRegisterPasswrod] = useState("");
-const [errorMsg, setErrorMsg] = useState("");
-
-const register = async () => {
+const register = async ({ registerEmail, registerPassword, setErrorMsg }) => {
   try {
     setErrorMsg("  ");
     const createdUser = await createUserWithEmailAndPassword(
@@ -13,8 +8,7 @@ const register = async () => {
       registerEmail,
       registerPassword
     );
-    console.log(createdUser);
-    setRegisterEmail;
+    return createdUser;
   } catch (e) {
     switch (e.code) {
       case "auth/weak-password":
@@ -29,3 +23,5 @@ const register = async () => {
     }
   }
 };
+
+export default register;
