@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import Headers from "../components/Headers";
+import getVideos from "../functions/getVideos";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
-  useEffect(() => {}, []);
-  return (
-    <>
-      <Headers />
-    </>
-  );
+
+  useEffect(() => {
+    getVideos();
+  }, []);
+
+  return <></>;
 };
 
 export default Home;

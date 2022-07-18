@@ -44,6 +44,7 @@ const Join = () => {
           id="email"
           value={registerEmail}
           onChange={handleChange("email")}
+          required
         />
         <label htmlFor="password">Password</label>
         <input
@@ -52,6 +53,7 @@ const Join = () => {
           id="password"
           value={registerPassword}
           onChange={handleChange("password")}
+          required
         />
         <input type="submit" value="Join" />
       </form>

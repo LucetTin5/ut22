@@ -1,10 +1,18 @@
-import Headers from "../components/Headers";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { LoginContext } from "../App";
 import signIn from "../functions/sign-in";
 
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const isLogin = useContext(LoginContext);
+
+  useEffect(() => {
+    if (isLogin) {
+      location.href = "/";
+    }
+  }, [isLogin]);
+
   const handleChange =
     (prop) =>
     ({ target: { value } }) => {
@@ -36,6 +44,7 @@ const Login = () => {
           id="email"
           value={loginEmail}
           onChange={handleChange("email")}
+          required
         />
         <label htmlFor="password">Password</label>
         <input
@@ -44,6 +53,7 @@ const Login = () => {
           id="password"
           value={loginPassword}
           onChange={handleChange("password")}
+          required
         />
         <input type="submit" value="Login" />
       </form>
